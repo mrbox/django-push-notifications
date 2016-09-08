@@ -53,7 +53,7 @@ def _wns_authenticate(scope="notify.windows.com"):
 
 	data = (
 		"grant_type=client_credentials"
-		"&client_id=%(client_ids)"
+		"&client_id=%(client_id)s"
 		"&client_secret=%(client_secret)s"
 		"&scope=notify.windows.com"
 	) % {"client_id": package_id, "client_secret": secret_key, "scope": scope}
@@ -62,7 +62,7 @@ def _wns_authenticate(scope="notify.windows.com"):
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	request = Request(SETTINGS.WNS_ACCESS_URL, data=data_bytes, headers=headers)
+	request = Request(SETTINGS.get('WNS_ACCESS_URL'), data=data_bytes, headers=headers)
 	try:
 		response = urlopen(request)
 	except HTTPError as err:
